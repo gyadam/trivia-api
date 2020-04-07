@@ -87,13 +87,18 @@ def create_app(test_config=None):
         return jsonify({
           'success': True
         })
-  
-  # TODO: Create a GET endpoint to get questions based on category. 
-  '''
-  TEST: In the "List" tab / main screen, clicking on one of the 
-  categories in the left column will cause only questions of that 
-  category to be shown. 
-  '''
+
+
+  @app.route('/categories/<int:category_id>/questions')
+  def get_categorized_questions(category_id):
+    categorized_questions = Question.query.filter_by(category=category_id).all()
+    formatted_questions = [question.format() for question in categorized_questions]
+    return jsonify({
+      'success': True,
+      'questions': formatted_questions,
+      'totalQuestions': len(formatted_questions),
+      'currentCategory': category_id
+    })
 
   # TODO: Create a POST endpoint to get questions to play the quiz. 
   '''

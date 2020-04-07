@@ -2,6 +2,7 @@ import os
 import unittest
 import json
 from flask_sqlalchemy import SQLAlchemy
+from flask import jsonify
 
 from flaskr import create_app
 from models import setup_db, Question, Category
@@ -49,7 +50,7 @@ class TriviaTestCase(unittest.TestCase):
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(data['1'], 'Science')
+        self.assertEqual(data['categories']['1'], 'Science')
 
     def test_delete_question(self):
         num_questions_before = Question.query.count()
@@ -59,6 +60,24 @@ class TriviaTestCase(unittest.TestCase):
 
         self.assertEqual(res.status_code, 200)
         self.assertEqual(num_questions_before - 1, num_questions_after)
+
+    def test_post_question(self):
+        add_res = self.client().post('/add')
+        self.assertEqual(add_res.status_code, 200)
+
+        num_questions_before = Question.query.count()
+        first_entry_id = Question.query.first().id
+        mock_data = json.dumps({
+            'question':'What day is it today?',
+            'answer':'Tuesday',
+            'category':'1',
+            'difficulty':'1'
+        })
+        post_res = self.client().post('/questions', data=mock_data, content_type='application/json')
+        num_questions_after = Question.query.count()
+
+        self.assertEqual(post_res.status_code, 200)
+        self.assertEqual(num_questions_before + 1, num_questions_after)
 
 
 

@@ -26,7 +26,9 @@ def create_app(test_config=None):
   def get_categories():
     categories = Category.query.all()
     categories_dict = {category.id:category.type for category in categories}
-    return jsonify(categories_dict)
+    return jsonify({
+      'categories': categories_dict
+    })
 
   @app.route('/questions', methods=['GET'])
   # return paginated questions
@@ -56,13 +58,26 @@ def create_app(test_config=None):
     })
 
 
-  # TODO: Create an endpoint to POST a new question, which will require the question and answer text, 
-  # category, and difficulty score.
-  '''
-  TEST: When you submit a question on the "Add" tab, 
-  the form will clear and the question will appear at the end of the last page
-  of the questions list in the "List" tab.  
-  '''
+  @app.route('/add')
+  def get_form():
+    return jsonify({
+      'success': True,
+    })
+
+  @app.route('/questions', methods=['GET', 'POST'])
+  def post_question():
+    if request.method == 'POST':
+      body = request.get_json()
+      quest = body['question']
+      ans = body['answer']
+      cat = body['category']
+      diff = body['difficulty']
+      new_question = Question(question=quest, answer=ans, category=cat, difficulty=diff)
+      new_question.insert()
+
+    return jsonify({
+      'success': True
+    })
 
   
   # TODO: Create a POST endpoint to get questions based on a search term. 

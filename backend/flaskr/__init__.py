@@ -47,11 +47,13 @@ def create_app(test_config=None):
     })
 
 
-  #TODO: Create an endpoint to DELETE question using a question ID. 
-  '''
-  TEST: When you click the trash icon next to a question, the question will be removed.
-  This removal will persist in the database and when you refresh the page. 
-  '''
+  @app.route('/questions/<int:question_id>', methods=['DELETE'])
+  def delete_question(question_id):
+    print('deleting...')
+    Question.query.filter_by(id=question_id).one_or_none().delete()
+    return jsonify({
+      'success': True
+    })
 
 
   # TODO: Create an endpoint to POST a new question, which will require the question and answer text, 
@@ -66,7 +68,7 @@ def create_app(test_config=None):
   # TODO: Create a POST endpoint to get questions based on a search term. 
   # It should return any questions for whom the search term 
   # is a substring of the question. 
-   '''
+  '''
   TEST: Search by any phrase. The questions list will update to include 
   only question that include that string within their question. 
   Try using the word "title" to start. 

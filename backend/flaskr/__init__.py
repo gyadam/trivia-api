@@ -51,10 +51,15 @@ def create_app(test_config=None):
 
   @app.route('/questions/<int:question_id>', methods=['DELETE'])
   def delete_question(question_id):
-    print('deleting...')
-    Question.query.filter_by(id=question_id).one_or_none().delete()
+    error = False
+    try:
+      Question.query.filter_by(id=question_id).one_or_none().delete()
+    except:
+      error = True
+      abort(422)
+    success = False if error else True
     return jsonify({
-      'success': True
+      'success': success
     })
 
 
@@ -66,6 +71,7 @@ def create_app(test_config=None):
 
   @app.route('/questions', methods=['GET', 'POST'])
   def post_question():
+    error = False
     if request.method == 'POST':
       body = request.get_json()
       if 'searchTerm' in body:
@@ -82,10 +88,15 @@ def create_app(test_config=None):
         ans = body['answer']
         cat = body['category']
         diff = body['difficulty']
-        new_question = Question(question=quest, answer=ans, category=cat, difficulty=diff)
-        new_question.insert()
+        try:
+          new_question = Question(question=quest, answer=ans, category=cat, difficulty=diff)
+          new_question.insert()
+        except:
+          error = True
+          abort(422)
+        success = False if error else True
         return jsonify({
-          'success': True
+          'success': success
         })
 
 
@@ -111,8 +122,23 @@ def create_app(test_config=None):
   and shown whether they were correct or not. 
   '''
 
-  #TODO: Create error handlers for all expected errors including 404 and 422. 
-  
+  @app.errorhandler(404)
+  def not_found(error):
+    return jsonify({
+        "success": False, 
+        "error": 404,
+        "message": "Not found"
+        }), 404
+
+  @app.errorhandler(422)
+  def unprocessable(error):
+    return jsonify({
+        "success": False, 
+        "error": 422,
+        "message": "Unprocessable Entity"
+        }), 422
+
+
   return app
 
     

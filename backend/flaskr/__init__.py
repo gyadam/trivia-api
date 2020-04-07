@@ -30,12 +30,8 @@ def create_app(test_config=None):
   # return all categories
   def get_categories():
     categories = Category.query.all()
-    formatted_categories = [category.format() for category in categories]
-    return jsonify({
-      'success': True,
-      'categories': formatted_categories,
-      'total_categories': len(formatted_categories)
-    })
+    categories_dict = {category.id:category.type for category in categories}
+    return jsonify(categories_dict)
 
   @app.route('/questions', methods=['GET'])
   # return paginated questions
@@ -46,13 +42,13 @@ def create_app(test_config=None):
     questions = Question.query.all()
     formatted_questions = [question.format() for question in questions]
     categories = Category.query.all()
-    formatted_categories = [category.format() for category in categories]
+    categories_dict = {category.id:category.type for category in categories}
     return jsonify({
       'success': True,
       'questions': formatted_questions[start:end],
       'total_questions': len(formatted_questions),
       'current_category': 'Geography',
-      'categories': formatted_categories
+      'categories': categories_dict
     })
 
 

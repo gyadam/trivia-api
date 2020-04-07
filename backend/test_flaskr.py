@@ -51,7 +51,7 @@ class TriviaTestCase(unittest.TestCase):
 
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['categories']['1'], 'Science')
-
+    
     def test_delete_question(self):
         num_questions_before = Question.query.count()
         first_entry_id = Question.query.first().id
@@ -62,7 +62,7 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(num_questions_before - 1, num_questions_after)
 
     def test_post_question(self):
-        add_res = self.client().post('/add')
+        add_res = self.client().get('/add')
         self.assertEqual(add_res.status_code, 200)
 
         num_questions_before = Question.query.count()
@@ -79,6 +79,17 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(post_res.status_code, 200)
         self.assertEqual(num_questions_before + 1, num_questions_after)
 
+    def test_search(self):
+        test_question = Question(question='Test question', answer='Test answer', category=1, difficulty=1)
+        test_question.insert()
+        mock_data = json.dumps({
+             'searchTerm': 'Test'
+        })
+        res = self.client().post('/questions', data=mock_data, content_type='application/json')
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 200)
+        self.assertTrue(data['questions'])
 
 
 # Make the tests conveniently executable

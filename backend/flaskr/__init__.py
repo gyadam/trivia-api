@@ -26,6 +26,16 @@ def create_app(test_config=None):
   Create an endpoint to handle GET requests 
   for all available categories.
   '''
+  @app.route('/categories')
+  # return all categories
+  def get_categories():
+    categories = Category.query.all()
+    formatted_categories = [category.format() for category in categories]
+    return jsonify({
+      'success': True,
+      'categories': formatted_categories,
+      'total_categories': len(formatted_categories)
+    })
 
   @app.route('/')
   # return paginated questions

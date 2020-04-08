@@ -21,7 +21,7 @@ The site runs on localhost and was created only for educational purposes.
 * **SQLAlchemy ORM** as the ORM library
 * **PostgreSQL** for the database
 * **Python3** and **Flask** as the server language and server framework
-* **HTML**, **CSS**, and **Javascript** with **Node.js** for the frontend
+* **HTML**, **CSS**, and **Javascript** with **Node.js** and **React** for the frontend
 
 ### Endpoints
 

@@ -27,7 +27,34 @@ All endpoints accept JSON encoded requests and return JSON encoded bodies. The f
 
 ```/questions```
 * GET request:
-    * 
+    * returns:
+    * a paginated list of questions according to the provided ```page``` parameter
+    * the total number of questions as ```total_questions,
+    * the categories as ```categories```,
+    * and the boolean ```success``` parameter in the body
+    * example response:
+      ```
+      {
+        "questions": [
+            {
+               "Question": "Who invented Peanut Butter?",
+               "Answer": "George Washington Carver",
+               "Category": 2,
+               "Difficulty": 2
+            },
+            etc...
+            ],
+        "categories":
+            {
+               "1": "Science",
+               "2": History",
+               etc...
+            },
+        "success": true, 
+        "totalQuestions": 13
+      }
+      ```
+    
 * POST request:
     *
 
@@ -67,18 +94,18 @@ All endpoints accept JSON encoded requests and return JSON encoded bodies. The f
     * example response:
     ``` 
     {
-      "success": "True"
+      "success": True
       "questions": [
       {
          "Question": "Who invented Peanut Butter?",
          "Answer": "George Washington Carver",
-         "Category": "2",
-         "Difficulty": "2"
+         "Category": 2,
+         "Difficulty": 2
       },
       etc...
       ],
-      "totalQuestions": "5",
-      "currentCategory": "2"
+      "totalQuestions": 5,
+      "currentCategory": 2
     }
     ```
             
@@ -99,13 +126,13 @@ All endpoints accept JSON encoded requests and return JSON encoded bodies. The f
     * example:
     ``` 
     {
-      "success": "True"
+      "success": True
       "question":
       {
          "Question": "Who invented Peanut Butter?",
          "Answer": "George Washington Carver",
-         "Category": "2",
-         "Difficulty": "2"
+         "Category": 2,
+         "Difficulty": 2
       }
     }
     ```

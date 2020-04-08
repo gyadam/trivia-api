@@ -24,56 +24,8 @@ def create_app(test_config=None):
                              'GET,PATCH,POST,DELETE,OPTIONS')
         return response
 
-    @app.route('/categories')
-    # return all categories
-    def get_categories():
-        categories = Category.query.all()
-        categories_dict = {
-            category.id: category.type for category in categories}
-        return jsonify({
-            'categories': categories_dict
-        })
-
-    @app.route('/questions', methods=['GET'])
-    # return paginated questions
-    def get_questions():
-        page = request.args.get('page', 1, type=int)
-        start = (page - 1) * 10
-        end = start + 10
-        questions = Question.query.all()
-        formatted_questions = [question.format() for question in questions]
-        categories = Category.query.all()
-        categories_dict = {
-            category.id: category.type for category in categories}
-        return jsonify({
-            'success': True,
-            'questions': formatted_questions[start:end],
-            'total_questions': len(formatted_questions),
-            'current_category': 'Geography',
-            'categories': categories_dict
-        })
-
-    @app.route('/questions/<int:question_id>', methods=['DELETE'])
-    def delete_question(question_id):
-        error = False
-        try:
-            Question.query.filter_by(id=question_id).one_or_none().delete()
-        except:
-            error = True
-            abort(422)
-        success = False if error else True
-        return jsonify({
-            'success': success
-        })
-
-    @app.route('/add')
-    def get_form():
-        return jsonify({
-            'success': True,
-        })
-
     @app.route('/questions', methods=['GET', 'POST'])
-    def post_question():
+    def get_post_search_question():
         error = False
         if request.method == 'POST':
             body = request.get_json()
@@ -104,6 +56,51 @@ def create_app(test_config=None):
                 return jsonify({
                     'success': success
                 })
+        else:
+          page = request.args.get('page', 1, type=int)
+          start = (page - 1) * 10
+          end = start + 10
+          questions = Question.query.all()
+          formatted_questions = [question.format() for question in questions]
+          categories = Category.query.all()
+          categories_dict = {
+            category.id: category.type for category in categories}
+          return jsonify({
+            'success': True,
+            'questions': formatted_questions[start:end],
+            'total_questions': len(formatted_questions),
+            'categories': categories_dict
+          })
+
+    @app.route('/categories')
+    # return all categories
+    def get_categories():
+        categories = Category.query.all()
+        categories_dict = {
+            category.id: category.type for category in categories}
+        return jsonify({
+            'success': True,
+            'categories': categories_dict
+        }) 
+
+    @app.route('/questions/<int:question_id>', methods=['DELETE'])
+    def delete_question(question_id):
+        error = False
+        try:
+            Question.query.filter_by(id=question_id).one_or_none().delete()
+        except:
+            error = True
+            abort(422)
+        success = False if error else True
+        return jsonify({
+            'success': success
+        })
+
+    @app.route('/add')
+    def get_form():
+        return jsonify({
+            'success': True,
+        })
 
     @app.route('/categories/<int:category_id>/questions')
     def get_categorized_questions(category_id):

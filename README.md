@@ -35,7 +35,9 @@ All endpoints accept JSON encoded requests and return JSON encoded bodies. The f
 
 ```/questions/\<int:question_id\>```
 * DELETE request:
-
+    * deletes the question with ID == ```question_id``` from the database
+    * returns the boolean ```success``` parameter in the body
+    
 ---
 
 ```/categories```
@@ -43,10 +45,11 @@ All endpoints accept JSON encoded requests and return JSON encoded bodies. The f
     * returns a JSON object with the IDs and category strings in a ```categories``` parameter, such as:
     ``` 
     {
+      "success": "True"
       "categories":
       {
          "1": "Science",
-         "2': History",
+         "2": History",
          etc...
       }
     }
@@ -61,11 +64,29 @@ All endpoints accept JSON encoded requests and return JSON encoded bodies. The f
 
 ```/add```
 * GET request:
-
+    * assists in loading the 'Add' page
+    * returns the boolean ```success``` parameter in the body
+    
 ---
 
 ```/quizzes```
 * POST request:
+    * returns a non-recurring random question from a category based on ```quiz_category.id``` provided in the request body
+    * returns the boolean ```success``` parameter in the body
+    * example:
+    ``` 
+    {
+      "success": "True"
+      "question":
+      {
+         "Question": "Who invented Peanut Butter?",
+         "Answer": "George Washington Carver",
+         "Category": "2",
+         "Difficulty": "2"
+      }
+    }
+    ```
+    
 
 
 ### Development setup

@@ -56,7 +56,27 @@ All endpoints accept JSON encoded requests and return JSON encoded bodies. The f
       ```
     
 * POST request:
-    *
+    * has 2 different functionalities: searching for questions and posting new questions
+    * if ```searchTerm``` is found in the body, a list of case-insensitive search results is returned as well as the total number of results as ```totalQuestions```
+    * otherwise, a new question is inserted using the provided ```questions```, ```answer```, ```difficulty```, ```category``` parameters provided and the boolean ```success``` parameter is returned in the response body
+    * example response in case of searching for the term "peanut":
+    ```
+    {
+      "questions": [
+       {
+         "answer": "George Washington Carver", 
+         "category": 4, 
+         "difficulty": 2, 
+         "id": 12, 
+         "question": "Who invented Peanut Butter?"
+       }
+     ], 
+      "success": true, 
+      "totalQuestions": 1
+    }
+    ```
+    
+    
 
 ---
 

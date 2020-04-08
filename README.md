@@ -26,7 +26,7 @@ The site runs on localhost and was created only for educational purposes.
 All endpoints accept JSON encoded requests and return JSON encoded bodies. The following endpoints were implemented to serve requests from the frontend, interacting with the database:
 
 ```/questions```
-* GET request:
+* ```GET``` request:
     * returns:
     * a paginated list of questions according to the provided ```page``` parameter
     * the total number of questions as ```total_questions,
@@ -55,7 +55,7 @@ All endpoints accept JSON encoded requests and return JSON encoded bodies. The f
       }
       ```
     
-* POST request:
+* ```POST``` request:
     * has 2 different functionalities: searching for questions and posting new questions
     * if ```searchTerm``` is found in the body, a list of case-insensitive search results is returned as well as the total number of results as ```totalQuestions```
     * otherwise, a new question is inserted using the provided ```questions```, ```answer```, ```difficulty```, ```category``` parameters provided and the boolean ```success``` parameter is returned in the response body
@@ -81,14 +81,14 @@ All endpoints accept JSON encoded requests and return JSON encoded bodies. The f
 ---
 
 ```/questions/[int:question_id] ```
-* DELETE request:
+* ```DELETE``` request:
     * deletes the question with ID == ```question_id``` from the database
     * returns the boolean ```success``` parameter in the body
     
 ---
 
 ```/categories```
-* GET request:
+* ```GET``` request:
     * returns a JSON object with the IDs and category strings in a ```categories``` parameter, such as:
     ``` 
     {
@@ -105,7 +105,7 @@ All endpoints accept JSON encoded requests and return JSON encoded bodies. The f
 ---
 
 ```/categories/[int:category_id]/questions```
-* GET request:
+* ```GET``` request:
     * returns:
     * a list of questions with category == ```category_id```,
     * the total number of questions as ```totalQuestions```
@@ -133,14 +133,14 @@ All endpoints accept JSON encoded requests and return JSON encoded bodies. The f
 ---
 
 ```/add```
-* GET request:
+* ```GET``` request:
     * assists in loading the 'Add' page
     * returns the boolean ```success``` parameter in the body
     
 ---
 
 ```/quizzes```
-* POST request:
+* ```POST``` request:
     * returns a non-recurring random question from a category based on ```quiz_category.id``` provided in the request body
     * returns the boolean ```success``` parameter in the body
     * example:

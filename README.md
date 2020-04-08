@@ -35,7 +35,14 @@ All endpoints accept JSON encoded requests and return JSON encoded bodies. The f
 * DELETE request:
 
 ```/categories```
-* GET request
+* GET request:
+    * returns a JSON object with the IDs and category strings in a ```categories``` parameter, such as:
+    ``` {
+            "1": "Science",
+            "2': History",
+            etc...
+        }
+    ```
 
 ```/categories/\<int:category_id\>/questions```
 * GET request:

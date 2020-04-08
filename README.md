@@ -33,7 +33,7 @@ All endpoints accept JSON encoded requests and return JSON encoded bodies. The f
 
 ---
 
-```/questions/\<int:question_id\>```
+```/questions/[int:question_id] ```
 * DELETE request:
     * deletes the question with ID == ```question_id``` from the database
     * returns the boolean ```success``` parameter in the body
@@ -57,8 +57,31 @@ All endpoints accept JSON encoded requests and return JSON encoded bodies. The f
     
 ---
 
-```/categories/\<int:category_id\>/questions```
+```/categories/[int:category_id]/questions```
 * GET request:
+    * returns:
+    * a list of questions with category == ```category_id```,
+    * the total number of questions as ```totalQuestions```
+    * the current category as ```currentCategory```,
+    * and the boolean ```success``` parameter
+    * example response:
+    ``` 
+    {
+      "success": "True"
+      "questions": [
+      {
+         "Question": "Who invented Peanut Butter?",
+         "Answer": "George Washington Carver",
+         "Category": "2",
+         "Difficulty": "2"
+      },
+      etc...
+      ],
+      "totalQuestions": "5",
+      "currentCategory": "2"
+    }
+    ```
+            
 
 ---
 

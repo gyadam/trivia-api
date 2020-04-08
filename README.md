@@ -14,6 +14,8 @@ Trivia API is a backend web development project created for the Full Stack Devel
 
 The site runs on localhost and was created only for educational purposes.
 
+<img src="./images/trivia_website.png" alt="Homepage of Udacity Trivia" width="700"/>
+
 ### Tech stack
 
 * **SQLAlchemy ORM** as the ORM library

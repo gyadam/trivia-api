@@ -89,7 +89,7 @@ All endpoints accept JSON encoded requests and return JSON encoded bodies. The f
 
 ```/categories```
 * ```GET``` request:
-    * returns a JSON object with the IDs and category strings in a ```categories``` parameter, such as:
+    * returns a list of categories with IDs and category strings in a ```categories``` parameter, such as:
     ``` 
     {
       "success": "True"

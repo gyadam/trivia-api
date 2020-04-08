@@ -131,7 +131,7 @@ def create_app(test_config=None):
         random.shuffle(formatted_questions)
         return jsonify({
             'success': True,
-            'question': formatted_questions[0]
+            'question': formatted_questions[0] if formatted_questions else None
         })
 
     @app.errorhandler(404)

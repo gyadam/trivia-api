@@ -1,6 +1,6 @@
 # Trivia API
 
-## Overview
+### Overview
 
 Trivia API is a backend web development project created for the Full Stack Developer Nanodegree at Udacity. The goal of the project was to:
 
@@ -14,16 +14,40 @@ Trivia API is a backend web development project created for the Full Stack Devel
 
 The site runs on localhost and was created only for educational purposes.
 
-## Tech stack
+### Tech stack
 
 * **SQLAlchemy ORM** as the ORM library
 * **PostgreSQL** for the database
 * **Python3** and **Flask** as the server language and server framework
 * **HTML**, **CSS**, and **Javascript** with **Node.js** for the frontend
 
-## Endpoints
+### Endpoints
 
-## Development setup
+All endpoints accept JSON encoded requests and return JSON encoded bodies. The following endpoints were implemented to serve requests from the frontend, interacting with the database:
+
+```/questions```
+* GET request:
+    * 
+* POST request:
+    *
+
+```/questions/\<int:question_id\>```
+* DELETE request:
+
+```/categories```
+* GET request
+
+```/categories/\<int:category_id\>/questions```
+* GET request:
+
+```/add```
+* GET request:
+
+```/quizzes```
+* POST request:
+
+
+### Development setup
 
 **Virtual environment**
 

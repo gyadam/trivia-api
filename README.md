@@ -31,8 +31,12 @@ All endpoints accept JSON encoded requests and return JSON encoded bodies. The f
 * POST request:
     *
 
+---
+
 ```/questions/\<int:question_id\>```
 * DELETE request:
+
+---
 
 ```/categories```
 * GET request:
@@ -47,12 +51,18 @@ All endpoints accept JSON encoded requests and return JSON encoded bodies. The f
       }
     }
     ```
+    
+---
 
 ```/categories/\<int:category_id\>/questions```
 * GET request:
 
+---
+
 ```/add```
 * GET request:
+
+---
 
 ```/quizzes```
 * POST request:
